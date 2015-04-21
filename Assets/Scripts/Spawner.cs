@@ -4,7 +4,8 @@ using System.Collections;
 public class Spawner : MonoBehaviour {
     public float spawnTime = 5f;
     public float spawnDelay = 2f;
-    //public GameObject[] enemies;
+    //public EnemyController[] enemies;
+    //public int index;
     public EnemyController enemy;
 
 	void Start () {

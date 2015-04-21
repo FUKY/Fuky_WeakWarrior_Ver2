@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour
 
    // private EnemyController enemy;
     private bool death;
-    public bool playerAttack;
 
     void Start()
     {
@@ -38,14 +37,7 @@ public class EnemyController : MonoBehaviour
             else
                 if (c.tag == "Sword")
                 {
-                    playerAttack = c.GetComponentInParent<Animator>().GetBool("attack");
-                    //Debug.Log(playerAttack);
-                    if (playerAttack == true)
-                    {
-                        death = true;
-                    }
-                    else
-                        death = false;
+                    death = c.GetComponentInParent<Animator>().GetBool("attack");
                 }            
         }
     }

@@ -6,16 +6,20 @@ public class PlayerController : MonoBehaviour {
     public RuntimeAnimatorController[] listAnimator;
     public int state;
     
-    //private Transform frontCheck;
+    private Transform frontCheck;
 
-    public bool attack = false;
+    private bool attack = false;
     private bool attacked;
 
-	void Start () {
+    private EnemyController enemy;
+    float hp = 1000;
+
+    void Start()
+    {
         animator = gameObject.GetComponent<Animator>();
-        animator.runtimeAnimatorController = listAnimator[state];
         animator.SetBool("attack", attack);
-        //frontCheck = transform.Find("frontCheck").transform;
+        frontCheck = transform.Find("frontCheck").transform;
+        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>();
 	}
 
     public void FlipRight()
@@ -42,29 +46,44 @@ public class PlayerController : MonoBehaviour {
         animator.SetBool("attack", attack);
     }
 
-    //void FixedUpdate()
-    //{
-    //    Collider2D[] frontEnemy = Physics2D.OverlapPointAll(frontCheck.position);
-    //    foreach (Collider2D c in frontEnemy)
-    //    {
-    //        // Player bị chém
-    //        attacked = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>().attackEnemy;
-    //        Debug.Log(attacked);
-    //        // Player chém trúng Enemy
-    //        if (c.tag == "Enemy" && animator.GetBool("attack") == true)
-    //        {
-    //            //Debug.Log("enemyDeath");
-    //            enemyDeath = true;
-    //        }
-    //    }
-    //}
-
-    void OnTriggerEnter2D(Collider2D col)
+    void FixedUpdate()
     {
-        if (col.tag == "Enemy")
+        Collider2D[] frontEnemy = Physics2D.OverlapPointAll(frontCheck.position);
+        foreach (Collider2D c in frontEnemy)
         {
-            
+            if (c.tag == "Enemy") 
+            {
+                
+            }
         }
     }
+
+    void Update()
+    {
+        animator.runtimeAnimatorController = listAnimator[state];
+        if (enemy.attackEnemy == true)
+        {
+            Debug.Log("a" + hp);
+            hp--;
+            if (hp <= 950)
+            {
+                state--;
+                hp = 1000;
+            }
+            if (state<=0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    //void OnTriggerEnter2D(Collider2D col)
+    //{
+    //    if (col.tag == "Enemy")
+    //    {
+    //        Debug.Log("player is attacked");
+    //        attacked = true;
+    //    }
+    //}
 
 }
