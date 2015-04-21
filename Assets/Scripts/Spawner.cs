@@ -8,7 +8,8 @@ public class Spawner : MonoBehaviour {
     //public int index;
     public EnemyController enemy;
 
-	void Start () {
+	void Start () 
+    {
         InvokeRepeating("Spawn", spawnDelay, spawnTime);        
 	}
 

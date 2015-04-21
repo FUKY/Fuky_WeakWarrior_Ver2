@@ -24,20 +24,20 @@ public class PlayerController : MonoBehaviour {
 
     public void FlipRight()
     {
+        attack = true;
+        animator.SetBool("attack", attack);
         Vector3 theScale = transform.localScale;
         theScale.x = 1;
         transform.localScale = theScale;
-        attack = true;
-        animator.SetBool("attack", attack);
     }
 
     public void FlipLeft()
     {
+        attack = true;
+        animator.SetBool("attack", attack);
         Vector3 theScale = transform.localScale;
         theScale.x = -1;
         transform.localScale = theScale;
-        attack = true;
-        animator.SetBool("attack", attack);
     }       
     public void IdleState()
     {
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
         animator.runtimeAnimatorController = listAnimator[state];
         if (enemy.attackEnemy == true)
         {
-            Debug.Log("a" + hp);
+            //Debug.Log("a" + hp);
             hp--;
             if (hp <= 950)
             {

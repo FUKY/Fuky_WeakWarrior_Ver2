@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyController : MonoBehaviour
 {
     private Animator animatorEnemy;
-    public bool attackEnemy;
+    public bool attackEnemy = false;
     private Transform frontCheck;
 
     public float speed = 2f;
@@ -13,13 +13,14 @@ public class EnemyController : MonoBehaviour
 
    // private EnemyController enemy;
     private bool death;
+    private bool playerAttack;
 
     void Start()
     {
         animatorEnemy = GetComponent<Animator>();
         frontCheck = transform.Find("frontCheck").transform;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-            rb2d.velocity = new UnityEngine.Vector2(speed, 0f);
+        rb2d.velocity = new UnityEngine.Vector2(speed, 0f);
     }
     void FixedUpdate()
     {
@@ -38,6 +39,10 @@ public class EnemyController : MonoBehaviour
                 if (c.tag == "Sword")
                 {
                     death = c.GetComponentInParent<Animator>().GetBool("attack");
+                    if (death == true)
+                    {
+                        Destroy(gameObject);
+                    }
                 }            
         }
     }
@@ -53,7 +58,7 @@ public class EnemyController : MonoBehaviour
     //            Debug.Log(playerAttack);
     //            if (playerAttack == true)
     //            {
-    //                death = true;
+    //                Destroy(gameObject);
     //            }
     //        }
     //    }
