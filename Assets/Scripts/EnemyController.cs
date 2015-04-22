@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     public bool attackEnemy = false;
     private Transform frontCheck;
 
+    //public float SPEED_DEFAULT = 2f;
+
     public float speed = 2f;
     private Rigidbody2D rb2d;
 
@@ -20,7 +22,6 @@ public class EnemyController : MonoBehaviour
         animatorEnemy = GetComponent<Animator>();
         frontCheck = transform.Find("frontCheck").transform;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-        rb2d.velocity = new UnityEngine.Vector2(speed, 0f);
     }
     void FixedUpdate()
     {
@@ -38,7 +39,7 @@ public class EnemyController : MonoBehaviour
             else
                 if (c.tag == "Sword")
                 {
-                    death = c.GetComponentInParent<Animator>().GetBool("attack");
+                    death = c.GetComponentInParent<PlayerController>().attack;
                     if (death == true)
                     {
                         Destroy(gameObject);
@@ -47,6 +48,20 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void SetVellocity(bool left)
+    {
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        if (left)
+        {
+            transform.localScale = new UnityEngine.Vector3(1, 1, 1);
+            rb2d.velocity = new UnityEngine.Vector2(speed, 0f);
+        }
+        else
+        {
+            transform.localScale = new UnityEngine.Vector3(-1, 1, 1);
+            rb2d.velocity = new UnityEngine.Vector2(-speed, 0f);
+        }
+    }
     // Enemy bị chém trúng
     //void OnTriggerEnter2D(Collider2D other)
     //{
